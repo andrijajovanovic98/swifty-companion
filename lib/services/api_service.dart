@@ -13,7 +13,9 @@ class ApiService {
     //print('Checking token: ');
 
     // Return cached token if it's still valid
-    if (_cachedToken != null && _tokenExpiry != null && now.isBefore(_tokenExpiry!)) {
+    if (_cachedToken != null &&
+        _tokenExpiry != null &&
+        now.isBefore(_tokenExpiry!)) {
       // print('The token is valid');
       // print(_cachedToken);
       return _cachedToken;
@@ -25,23 +27,21 @@ class ApiService {
     final secret = dotenv.env['API_SECRET'];
 
     try {
-      final response = await http
-          .post(
-            Uri.parse('https://api.intra.42.fr/oauth/token'),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: {
-              'grant_type': 'client_credentials',
-              'client_id': uid,
-              'client_secret': secret,
-            },
-          )
-          .timeout(const Duration(seconds: 5));
+      final response = await http.post(
+        Uri.parse('https://api.intra.42.fr/oauth/token'),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: {
+          'grant_type': 'client_credentials',
+          'client_id': uid,
+          'client_secret': secret,
+        },
+      ).timeout(const Duration(seconds: 5));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         _cachedToken = data['access_token'];
 
         final expiresIn = data['expires_in'] as int;
-        _tokenExpiry = now.add(Duration(seconds: expiresIn - 30)); 
+        _tokenExpiry = now.add(Duration(seconds: expiresIn - 30));
         // _tokenExpiry = now.add(Duration(seconds: 5));
         return _cachedToken;
       } else {
@@ -54,16 +54,15 @@ class ApiService {
     }
   }
 
-  static Future<Map<String, dynamic>?> fetchUserProfile(String login, String token) async {
+  static Future<Map<String, dynamic>?> fetchUserProfile(
+      String login, String token) async {
     final url = 'https://api.intra.42.fr/v2/users/$login';
 
     try {
-      final response = await http
-          .get(
-            Uri.parse(url),
-            headers: {'Authorization': 'Bearer $token'},
-          )
-          .timeout(const Duration(seconds: 5)); 
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {'Authorization': 'Bearer $token'},
+      ).timeout(const Duration(seconds: 5));
 
       if (response.statusCode == 200) {
         return json.decode(response.body);

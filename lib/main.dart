@@ -65,7 +65,8 @@ class _MyAppState extends State<MyApp> {
           bodyMedium: TextStyle(color: Colors.white),
         ),
       ),
-      home: HomeScreen(onToggleTheme: _toggleTheme, isDark: _themeMode == ThemeMode.dark),
+      home: HomeScreen(
+          onToggleTheme: _toggleTheme, isDark: _themeMode == ThemeMode.dark),
     );
   }
 }

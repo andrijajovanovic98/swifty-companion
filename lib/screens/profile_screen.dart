@@ -53,19 +53,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-bool get isBlackholed {
-  final selectedUser = _selectedCursus?['user'];
-  final isActive = selectedUser?['active?'] ?? true;
-  final blackholedAtRaw = _selectedCursus?['blackholed_at'];
-  final blackholedAt = blackholedAtRaw != null ? DateTime.tryParse(blackholedAtRaw) : null;
+  bool get isBlackholed {
+    final selectedUser = _selectedCursus?['user'];
+    final isActive = selectedUser?['active?'] ?? true;
+    final blackholedAtRaw = _selectedCursus?['blackholed_at'];
+    final blackholedAt =
+        blackholedAtRaw != null ? DateTime.tryParse(blackholedAtRaw) : null;
 
-  if (isActive == false && blackholedAt != null && blackholedAt.isBefore(DateTime.now())) {
-    return true;
+    if (isActive == false &&
+        blackholedAt != null &&
+        blackholedAt.isBefore(DateTime.now())) {
+      return true;
+    }
+
+    return false;
   }
-
-  return false;
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -137,56 +139,59 @@ bool get isBlackholed {
               Text('Location: ${_user!['location'] ?? 'N/A'}'),
               const SizedBox(height: 12),
               if (_cursusList.isNotEmpty) ...[
-Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: [
-    const SizedBox(height: 8),
-    DropdownButton<Map<String, dynamic>>(
-      isExpanded: true,
-      value: _selectedCursus,
-      items: _cursusList.map<DropdownMenuItem<Map<String, dynamic>>>(
-        (cursus) {
-          final name = cursus['cursus']?['name'] ?? 'unknown';
-          return DropdownMenuItem(
-            value: cursus,
-            child: Text(
-              name,
-              overflow: TextOverflow.ellipsis,
-            ),
-          );
-        },
-      ).toList(),
-      onChanged: _onCursusChanged,
-    ),
-  ],
-),
-
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 8),
+                    DropdownButton<Map<String, dynamic>>(
+                      isExpanded: true,
+                      value: _selectedCursus,
+                      items: _cursusList
+                          .map<DropdownMenuItem<Map<String, dynamic>>>(
+                        (cursus) {
+                          final name = cursus['cursus']?['name'] ?? 'unknown';
+                          return DropdownMenuItem(
+                            value: cursus,
+                            child: Text(
+                              name,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          );
+                        },
+                      ).toList(),
+                      onChanged: _onCursusChanged,
+                    ),
+                  ],
+                ),
                 Text('Level: $level'),
                 const SizedBox(height: 24),
-                const Text('Skills:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                const Text('Skills:',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                 const SizedBox(height: 12),
-if (skillNames.isNotEmpty)
-  LayoutBuilder(
-    builder: (context, constraints) {
-      final double size = math.min(constraints.maxWidth * 0.7, 300);
-      return Center(
-        child: SizedBox(
-          width: size,
-          height: size,
-          child: SkillRadarChart(
-            skillNames: skillNames,
-            skillValues: skillValues,
-          ),
-        ),
-      );
-    },
-  )
-else
-  const Text('No skills available.'),
-
+                if (skillNames.isNotEmpty)
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final double size =
+                          math.min(constraints.maxWidth * 0.7, 300);
+                      return Center(
+                        child: SizedBox(
+                          width: size,
+                          height: size,
+                          child: SkillRadarChart(
+                            skillNames: skillNames,
+                            skillValues: skillValues,
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                else
+                  const Text('No skills available.'),
               ],
               const SizedBox(height: 24),
-              const Text('Projekt:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              const Text('Projekt:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               const SizedBox(height: 12),
               Builder(
                 builder: (context) {

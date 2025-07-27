@@ -17,8 +17,8 @@ class SkillRadarChart extends StatelessWidget {
     final values = [...skillValues];
 
     while (names.length < 3) {
-      names.add('');        
-      values.add(0.0); 
+      names.add('');
+      values.add(0.0);
     }
 
     final processedSkillNames = names.map((name) {
@@ -48,8 +48,7 @@ class SkillRadarChart extends StatelessWidget {
               fillColor: Colors.cyan.withOpacity(0.4),
               borderColor: Colors.cyan,
               entryRadius: 2,
-              dataEntries:
-                  values.map((v) => RadarEntry(value: v)).toList(),
+              dataEntries: values.map((v) => RadarEntry(value: v)).toList(),
             ),
           ],
         ),

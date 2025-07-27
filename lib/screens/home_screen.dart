@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,       
+        centerTitle: true,
         title: const Text('Swifty Companion'),
         actions: [
           Switch(
@@ -77,7 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ElevatedButton(
               onPressed: _onSearchPressed,
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
