@@ -1,0 +1,35 @@
+# Flutter/Dart build and cache
+build/
+.dart_tool/
+.packages
+.pub-cache/
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-versions
+
+# IDE and editor configs
+.idea/
+.vscode/
+*.iml
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# Platform-specific files
+android/local.properties
+ios/Pods/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/.generated
+
+# Device Preview cache (if used)
+device_preview/
+
+# Log or debug files
+*.log
+
+lepesek
